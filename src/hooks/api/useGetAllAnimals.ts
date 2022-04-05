@@ -6,7 +6,11 @@ export const useGetAllAnimals = () => {
 
     const fetchAllPokemon = async () => {
         try{
-            const response = await fetch(`https://animalrestapi.azurewebsites.net/Animal/List/?candidateID=a0690a25-7012-4466-93eb-b40f228f22aa`)
+            const response = await fetch(`https://animalrestapi.azurewebsites.net/Animal/List/?candidateID=a0690a25-7012-4466-93eb-b40f228f22aa`,{
+                headers:{
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            })
             if(!response.ok){
                 return console.log('bad response')
             }

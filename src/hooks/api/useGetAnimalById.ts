@@ -1,25 +1,31 @@
+import {useAnimalsContext} from "../../context/AnimalContextContainer";
+
 export const useGetAnimalById = () => {
 
-    // const {setAllPokemon} = usePokemonContext();
+    const {setSelectedAnimal} = useAnimalsContext();
 
-    const fetchPokemonById = async (id: string) => {
+    const fetchAnimalById = async (id: string|number) => {
         try {
-            const response = await fetch(`https://animalrestapi.azurewebsites.net/?candidateID=a0690a25-7012-4466-93eb-b40f228f22aa/Animal/Id/${id}`)
+            const response = await fetch(`http://animalrestapi.azurewebsites.net/Animal/id/${id}?candidateID=a0690a25-7012-4466-93eb-b40f228f22aa`,{
+                headers:{
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            })
 
             if (!response.ok) {
                 return console.log('bad request')
             }
             const document = await response.json();
 
-            if (document?.animal) {
-                // return setAllPokemon(document.list)
+            if (!document?.animal) {
+                return console.log('error getting animal')
             }
-            // return setAllPokemon([])
+            return setSelectedAnimal(document.animal)
         } catch (e) {
             if (typeof e !== "string") {
                 return console.log(JSON.stringify(e, null, 2))
             }
         }
     }
-    return {fetchPokemonById}
+    return {fetchAnimalById}
 };

@@ -1,5 +1,5 @@
 export interface IAnimal {
-    id?:number,
+    id?:string|number,
     commonName:string
     scientificName?:string,
     family?:string

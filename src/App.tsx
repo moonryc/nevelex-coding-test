@@ -1,23 +1,20 @@
-import React, {useEffect} from 'react';
-import Paper from "./components/paper";
-import Animals from "./components/animal-search";
-import Wrapper from "./components/wrapper";
-import {useGetAllAnimals} from "./hooks";
-
+import React from 'react';
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import AllAnimals from "./pages/AllAnimals";
+import Animal from "./pages/Animal";
+import NewAnimal from "./pages/NewAnimal";
+import './styles/styles.css'
 
 function App() {
 
-    const {fetchAllPokemon} = useGetAllAnimals()
-    useEffect(()=>{
-        fetchAllPokemon()
-    },[])
-
     return (
-        <Wrapper>
-            <Paper>
-                <Animals/>
-            </Paper>
-        </Wrapper>
+        <BrowserRouter>
+            <Routes>
+                <Route index element={<AllAnimals/>}/>
+                <Route path={':animalId'} element={<Animal/>}/>
+                <Route path={'new'} element={<NewAnimal/>}/>
+            </Routes>
+        </BrowserRouter>
     );
 }
 

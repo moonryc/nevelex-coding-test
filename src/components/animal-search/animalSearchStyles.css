@@ -29,23 +29,8 @@
 }
 
 
-.tag-style{
-    background-color: #e4e6eb;
-    height: fit-Content;
-    width: fit-content;
-    padding: 8px;
-    border-radius: 5px;
-    margin: 5px;
-}
 
-.search-field{
-    width: 100%;
-    max-width: -webkit-fill-available;
-    border: none;
-    border-bottom: 2px solid #e4e6eb;
-    padding: 5px;
-    margin: 20px;
-    font-family: RaleWay;
-    font-size: 1.3rem;
-}
+
+
+
 

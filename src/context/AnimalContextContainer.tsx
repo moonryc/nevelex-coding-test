@@ -9,8 +9,9 @@ interface IAnimalsContext {
     setFilteredAnimalData: (value: IAnimal[] | null) => void,
     nameFilter: string,
     setNameFilter: (value: string) => void
+    selectedAnimal: IAnimal|null,
+    setSelectedAnimal: (value: IAnimal | null) => void
 }
-
 
 export const AnimalsContext = createContext<IAnimalsContext>({
     allAnimals: null,
@@ -21,7 +22,9 @@ export const AnimalsContext = createContext<IAnimalsContext>({
     },
     nameFilter: '',
     setNameFilter: (value: string) => {
-    }
+    },
+    selectedAnimal:null,
+    setSelectedAnimal:(value:IAnimal|null)=>{}
 
 })
 
@@ -35,6 +38,7 @@ const AnimalContextContainer: React.FC<props> = ({children}) => {
     const [allAnimals, setAllAnimals] = useState<IAnimal[] | null>(null);
     const [filteredAnimalData, setFilteredAnimalData] = useState<IAnimal[] | null>(null);
     const [nameFilter, setNameFilter] = useState<string>('');
+    const [selectedAnimal, setSelectedAnimal] = useState<IAnimal|null>(null);
 
 
     /**
@@ -54,7 +58,8 @@ const AnimalContextContainer: React.FC<props> = ({children}) => {
         <AnimalsContext.Provider value={{
             allAnimals, setAllAnimals,
             filteredAnimalData, setFilteredAnimalData,
-            nameFilter, setNameFilter
+            nameFilter, setNameFilter,
+            setSelectedAnimal,selectedAnimal
         }}>
             {children}
         </AnimalsContext.Provider>
