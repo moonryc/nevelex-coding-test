@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import AnimalContextContainer from "./context/AnimalContextContainer";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <AnimalContextContainer>
+        <App />
+      </AnimalContextContainer>
   </React.StrictMode>,
   document.getElementById('root')
 );
