@@ -47,9 +47,12 @@ section{
 }
 /*endregion*/
 
+.animal-not-found{
+    text-align: center;
+}
+
 .selected-animal-container{
     display: flex;
-
     height:100%
 }
 
