@@ -14,8 +14,7 @@ const IndividualAnimal: React.FC<props> = ({animal, index,isDeleteMode}) => {
     const {deleteAnimalById} = useDeleteAnimalById()
 
     const handleDelete = async () => {
-        //@ts-ignore
-        await deleteAnimalById(animal.id)
+        await deleteAnimalById(animal.id as string)
     }
 
     const handleClick = () => {
@@ -31,12 +30,7 @@ const IndividualAnimal: React.FC<props> = ({animal, index,isDeleteMode}) => {
                     {animal.commonName.toUpperCase()}
                 </h1>
             </div>
-            {/*//@ts-ignore*/}
-            {/*{isDeleteMode && animal.id.toString().length > 1 ?*/}
-
             {isDeleteMode &&( <button onClick={handleDelete} className={'delete-button'}>Delete</button>)}
-
-            {/*</div>*/}
         </article>
     )
 }
