@@ -1,6 +1,7 @@
 import { useCreateAnimal } from './useCreateAnimal';
 import { useDeleteAnimalById } from './useDeleteAnimalById';
 import { IAnimal } from '../../types';
+import { useState } from 'react';
 
 //TODO: Please understand this is not the way I would normally do this. But
 // since there was not an update route provided I created a way to update animals
@@ -8,10 +9,12 @@ import { IAnimal } from '../../types';
 /**
  * returns a function to update a specific animal using the useCreateAnimal
  * hook and the useDeleteAnimalById hook as a temporary work around
+ * @returns {updateAnimal, error}
  */
 export const useUpdateAnimal = () => {
   const { createAnimal } = useCreateAnimal();
   const { deleteAnimalById } = useDeleteAnimalById();
+  const [error, setError] = useState<string>('');
 
   /**
    * updates animals
@@ -19,9 +22,16 @@ export const useUpdateAnimal = () => {
    * @param animal
    */
   const updateAnimal = async (id: number | string, animal: IAnimal) => {
-    await deleteAnimalById(id);
-    await createAnimal(animal);
+    try {
+      await deleteAnimalById(id);
+      await createAnimal(animal);
+    } catch (e) {
+      if(typeof e === 'string'){
+        return setError(e);
+      }
+      setError(JSON.stringify(e,null,2));
+    }
   };
 
-  return { updateAnimal };
+  return { updateAnimal,error };
 };

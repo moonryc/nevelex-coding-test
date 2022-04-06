@@ -3,11 +3,19 @@ import { IAnimal } from '../../types';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
+
+/**
+ *  @returns {createAnimal,error}
+ */
 export const useCreateAnimal = () => {
   const navigation = useNavigate();
   const { fetchAllPokemon } = useGetAllAnimals();
   const [error, setError] = useState<string>('');
 
+  /**
+   * creates a new animal
+   * @param animal
+   */
   const createAnimal = async (animal: IAnimal) => {
     try {
       setError('');

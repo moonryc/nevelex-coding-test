@@ -1,11 +1,19 @@
 import { useGetAllAnimals } from './useGetAllAnimals';
 import { useState } from 'react';
 
+/**
+ * used to delete an animal by id
+ * @returns {deleteAnimalById,error}
+ */
 export const useDeleteAnimalById = () => {
 
   const { fetchAllPokemon } = useGetAllAnimals();
   const [error, setError] = useState<string>('');
 
+  /**
+   * deletes an animal by id
+   * @param id
+   */
   const deleteAnimalById = async (id: string | number) => {
     try {
       setError('');
@@ -18,7 +26,6 @@ export const useDeleteAnimalById = () => {
       if (!response.ok) {
         return setError('failed to add pokemon');
       }
-      // const document = await response.json()
       return await fetchAllPokemon();
     } catch (e) {
       if (typeof e !== 'string') {
