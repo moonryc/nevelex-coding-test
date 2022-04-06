@@ -17,8 +17,7 @@ const AnimalSearch: React.FC<props> = ({isDeleteMode}) => {
                     <>
                         {!isDeleteMode && (
                             <IndividualAnimal animal={animal} index={index} isDeleteMode={isDeleteMode}/>)}
-                        {/*@ts-ignore*/}
-                        {isDeleteMode && animal.id.toString().length > 1 ?
+                        {isDeleteMode && animal.id && animal.id.toString().length > 1 ?
                             <IndividualAnimal animal={animal} index={index} isDeleteMode={isDeleteMode}/> : <></>}
                     </>
                 )
