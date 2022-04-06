@@ -1,0 +1,21 @@
+.selected-animal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-right: #888888 1px solid;
+}
+
+.selected-animal >h1{
+    height:initial;
+}
+
+
+@media only screen and (max-width: 1200px) {
+    .selected-animal{
+        border-right: 0px;
+        margin: 0px 20px;
+        border-bottom: #888888 1px solid;
+    }
+}
+
