@@ -1,5 +1,12 @@
 button {
     cursor: pointer;
+    background-color: #fff;
+    font-size: larger;
+    border-radius: 7px;
+    font-weight: bold;
+    min-width: fit-content;
+    padding: 10px 0 10px 0;
+    margin: 20px;
 }
 
 section{
@@ -9,6 +16,7 @@ section{
     scroll-behavior: smooth;
 }
 
+/*region Buttons/Search*/
 .search-field{
     width: 100%;
     max-width: -webkit-fill-available;
@@ -16,29 +24,32 @@ section{
     border-bottom: 2px solid #e4e6eb;
     padding: 5px;
     margin: 20px;
-    font-family: RaleWay;
+    font-family: RaleWay, serif;
     font-size: 1.3rem;
 }
-
 
 .input-container{
     display: flex;
     justify-content: space-evenly;
 }
 
-.menu-button{
-    background-color: #fff;
-    font-size: larger;
-    border-radius: 7px;
-    font-weight: bold;
-    /*box-shadow: 0px 3px 4px #888888;*/
-    /*flex:1;*/
-    min-width: fit-content;
-    width: 45%;
-    padding: 10px 0 10px 0;
-    margin: 20px 20px 0 20px;
+.input-container > button{
+    flex:1;
+}
+/*endregion*/
+
+
+/*region New Animal*/
+
+.new-animal-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
+.new-animal-section > div{
+    text-align: center;
+}
 
 .new-animal-form {
     display:flex;
@@ -60,16 +71,7 @@ section{
 }
 
 .new-animal-form > button{
-    background-color: #fff;
-    font-size: larger;
-    border-radius: 7px;
-    font-weight: bold;
-    /*box-shadow: 0px 3px 4px #888888;*/
-    /*flex:1;*/
-    min-width: fit-content;
     width: 90%;
-    padding: 10px 0 10px 0;
-    margin: 20px 20px 0 20px;
 }
 
 .new-animal-form > div> input{
@@ -79,13 +81,13 @@ section{
     border-bottom: 2px solid #e4e6eb;
     padding: 5px;
     margin: 20px 40px 20px 40px;
-    font-family: RaleWay;
+    font-family: RaleWay, serif;
     font-size: 1.3rem;
 }
-
+/*endregion*/
 
 .paragraph-style {
-    font-family: RaleWay;
+    font-family: RaleWay, serif;
     font-size: 1.3rem;
     font-weight: 200;
     margin: 0px;
@@ -98,6 +100,7 @@ section{
         width: 95vw
     }
 
+    /*region Buttons/Search*/
     .search-field-container{
         display: flex;
         justify-content: center;
@@ -111,10 +114,13 @@ section{
         flex-direction: column;
         align-items: center;
     }
-    .menu-button{
+
+    .input-container > button{
         margin: 20px 20px 0 20px;
         width:85%;
     }
+    /*endregion*/
+
 
     .paragraph-style{
         margin-left: 0px;

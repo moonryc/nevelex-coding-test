@@ -16,6 +16,8 @@ const NewAnimal = () => {
     const navigate = useNavigate();
     const {createAnimal, error} = useCreateAnimal()
     const [animalFormData, setAnimalFormData] = useState<IAnimal>(initialAnimalData);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
     const {commonName, scientificName, family, imageURL} = animalFormData
 
     const toHome = () => {
@@ -24,19 +26,34 @@ const NewAnimal = () => {
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setAnimalFormData(prevState => ({...prevState, [e.target.name]: e.target.value}))
+        if(!e.target.value.length){
+            setErrorMessage(`${e.target.name} is required`)
+            setIsSubmitDisabled(true)
+        }else{
+            setErrorMessage('')
+            setIsSubmitDisabled(false)
+        }
     }
 
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>|FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        for(const key in animalFormData){
+            // @ts-ignore
+            if(!animalFormData[key]){
+                setIsSubmitDisabled(true)
+                setErrorMessage('Whoops! you might be missing a value there!')
+                return
+            }
+        }
         await createAnimal(animalFormData)
     }
 
     return (
         <Wrapper>
             <Paper>
-                <section>
+                <section className={'new-animal-section'}>
                     <div className={'input-container'}>
-                        <button className={'menu-button'} onClick={toHome}>BACK</button>
+                        <button onClick={toHome}>BACK</button>
                     </div>
                     <form className={'new-animal-form'} onSubmit={(e) => handleSubmit(e)}>
                         <div>
@@ -59,14 +76,14 @@ const NewAnimal = () => {
                                 placeholder={'Family'}/>
                         </div>
                         <div>
-                            <label htmlFor={'Image URL'}>URL image:</label>
+                            <label htmlFor={'imageURL'}>URL image:</label>
                             <input
                                 onChange={(e) => handleChange(e)} name={'imageURL'} value={imageURL}
                                 placeholder={'Image URL'}/>
                         </div>
-                        <button className={'menu-button'}>Submit</button>
                     </form>
-                    {error && (error)}
+
+                    <button disabled={isSubmitDisabled} onClick={(e)=>handleSubmit(e)}>{errorMessage? errorMessage:'Submit'}</button>
                 </section>
             </Paper>
         </Wrapper>
