@@ -1,8 +1,10 @@
 import {useAnimalsContext} from "../../context/AnimalContextContainer";
+import {useState} from "react";
 
 export const useGetAnimalById = () => {
 
     const {setSelectedAnimal} = useAnimalsContext();
+    const [loading, setLoading] = useState(true);
 
     const fetchAnimalById = async (id: string|number) => {
         try {
@@ -20,6 +22,7 @@ export const useGetAnimalById = () => {
             if (!document?.animal) {
                 return console.log('error getting animal')
             }
+            setLoading(false)
             return setSelectedAnimal(document.animal)
         } catch (e) {
             if (typeof e !== "string") {
@@ -27,5 +30,5 @@ export const useGetAnimalById = () => {
             }
         }
     }
-    return {fetchAnimalById}
+    return {fetchAnimalById,loading}
 };
