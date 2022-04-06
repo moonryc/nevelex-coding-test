@@ -1,34 +1,24 @@
-import React, {useEffect} from 'react';
-import {useNavigate, useParams} from "react-router-dom";
-import {useGetAnimalById} from "../../hooks";
-import {useAnimalsContext} from "../../context/AnimalContextContainer";
+import React from 'react';
+import { IAnimal } from '../../types';
+import './selectedAnimalStyle.css'
 
-interface props {}
+interface props {
+    selectedAnimal:IAnimal|null
+}
 
-const SelectedAnimal:React.FC<props> = () => {
-    const navigate = useNavigate()
-    const {selectedAnimal} = useAnimalsContext()
-
-    const toHomepage = () => {
-        navigate('/')
-    }
-
+const SelectedAnimal:React.FC<props> = ({selectedAnimal}) => {
     return (
-        <section>
-            <div className={'input-container'}>
-                <button onClick={toHomepage}>BACK</button>
-            </div>
+        <div className={'selected-animal'}>
             {selectedAnimal && (<>
                 <img alt={selectedAnimal.commonName} src={selectedAnimal.imageURL} className={'imageStyle'}/>
-                <aside style={{flex: 1}}>
                     <h1 className={'headerStyle'}>
                         {selectedAnimal.commonName.toUpperCase()}
                     </h1>
                     <p className={'paragraph-style'}>Scientific name: {selectedAnimal.scientificName}</p>
                     <p className={'paragraphStyle'} >Family: {selectedAnimal.family}</p>
-                </aside>
+
             </>)}
-        </section>
+        </div>
     );
 };
 
