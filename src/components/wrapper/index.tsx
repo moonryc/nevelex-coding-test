@@ -1,17 +1,17 @@
 import React from 'react';
-import './wrapperStyles.css'
+import './wrapperStyles.css';
 
 interface props {
-    [x:string]:any
+  [x: string]: any;
 }
 
 
-const Wrapper:React.FC<props> = ({children, ...props}) => {
-    return (
-        <div className={'wrapper-style'} {...props}>
-            {children}
-        </div>
-    );
+const Wrapper: React.FC<props> = ({ children, ...props }) => {
+  return (
+    <div className={'wrapper-style'} {...props}>
+      {children}
+    </div>
+  );
 };
 
 export default Wrapper;

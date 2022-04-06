@@ -13,9 +13,10 @@ const initialAnimalData: IAnimal = {
   imageURL: ''
 };
 
-interface props {}
+interface props {
+}
 
-const NewAnimal:React.FC<props> = () => {
+const NewAnimal: React.FC<props> = () => {
   const navigate = useNavigate();
   const { createAnimal } = useCreateAnimal();
   const [animalFormData, setAnimalFormData] = useState<IAnimal>(initialAnimalData);

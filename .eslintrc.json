@@ -21,7 +21,6 @@
     "curly": "error",
     "dot-notation": "error",
     "eqeqeq": "error",
-    "no-empty-function": "error",
     "no-multi-spaces": "error",
     "no-mixed-spaces-and-tabs": "error",
     "no-trailing-spaces": "error",
@@ -47,5 +46,5 @@
       }
     }
   ],
-  "extends": ["prettier", "plugin:jest/recommended","next/core-web-vitals"]
+  "extends": ["prettier", "plugin:jest/recommended"]
 }
