@@ -2,6 +2,7 @@ import React from 'react';
 import './animalSearchStyles.css';
 import { useAnimalsContext } from '../../context/AnimalContextContainer';
 import IndividualAnimal from './IndividualAnimal';
+import { ReactComponent } from '*.svg';
 
 
 interface props {
@@ -9,17 +10,15 @@ interface props {
 }
 
 const AnimalSearch: React.FC<props> = ({ isDeleteMode }) => {
-  const { filteredAnimalData } = useAnimalsContext();
+  const { nameFilter,allAnimals } = useAnimalsContext();
   return (
     <section data-testid='display-students'>
-      {filteredAnimalData && (filteredAnimalData.map((animal, index) => {
+      {allAnimals &&(allAnimals.filter((animal)=>animal.commonName.toLowerCase().includes(nameFilter.toLowerCase())).map((animal, index) => {
         return (
-          <>
-            {!isDeleteMode && (
-              <IndividualAnimal animal={animal} index={index} isDeleteMode={isDeleteMode} />)}
-            {isDeleteMode && animal.id && animal.id.toString().length > 1 ?
-              <IndividualAnimal animal={animal} index={index} isDeleteMode={isDeleteMode} /> : <></>}
-          </>
+          <React.Fragment key={index}>
+            {!isDeleteMode && (<IndividualAnimal animal={animal} index={index} isDeleteMode={isDeleteMode} />)}
+            {isDeleteMode && animal.id && animal.id.toString().length > 1 && (<IndividualAnimal animal={animal} index={index} isDeleteMode={isDeleteMode} />)}
+          </React.Fragment>
         );
       }))}
     </section>

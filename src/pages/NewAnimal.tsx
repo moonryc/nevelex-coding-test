@@ -28,6 +28,10 @@ const NewAnimal: React.FC<props> = () => {
     navigate('/');
   };
 
+  /**
+   * handles updating the animalFormData
+   * @param e
+   */
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setAnimalFormData(prevState => ({ ...prevState, [e.target.name]: e.target.value }));
     if (!e.target.value.length) {

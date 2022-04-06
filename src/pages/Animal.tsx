@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react';
 import Wrapper from '../components/wrapper';
 import Paper from '../components/paper';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -19,10 +19,10 @@ const initialAnimalData: IAnimal = {
 };
 
 const Animal: React.FC<props> = () => {
-  const { selectedAnimal } = useAnimalsContext();
   const navigate = useNavigate();
   const params = useParams();
-  const { fetchAnimalById, loading } = useGetAnimalById();
+  const { selectedAnimal } = useAnimalsContext();
+  const { fetchAnimalById, loading, error } = useGetAnimalById();
   const [animalFormData, setAnimalFormData] = useState<IAnimal>(initialAnimalData);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(false);
@@ -33,6 +33,10 @@ const Animal: React.FC<props> = () => {
     navigate('/');
   };
 
+  /**
+   * updates animalFormData
+   * @param e
+   */
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setAnimalFormData(prevState => ({ ...prevState, [e.target.name]: e.target.value }));
     if (!e.target.value.length) {
@@ -60,6 +64,9 @@ const Animal: React.FC<props> = () => {
     }
   };
 
+  /**
+   * updates the selectedAnimal for display and disables the update form if the selectedAnimal is a seed date
+   */
   useEffect(() => {
     if (params.animalId) {
       fetchAnimalById(params.animalId);
@@ -68,11 +75,37 @@ const Animal: React.FC<props> = () => {
       setDisableForm(true);
     }
   }, []);
+  /**
+   * updates the animal form data to reflect the change between selectedAnimals
+   */
   useEffect(() => {
     if (selectedAnimal) {
       setAnimalFormData(selectedAnimal);
     }
   }, [selectedAnimal]);
+
+  /**
+   * Displays Data if there is data to be displayed or displays Animal not found if the animal id is invalid
+   * @constructor
+   */
+  const DisplayData = () => (
+    <>
+      {!error ? <div className={'selected-animal-container'}>
+        <SelectedAnimal selectedAnimal={selectedAnimal} />
+        <div>
+          <h1>Update Animal</h1>
+          <AnimalForm
+            disableForm={disableForm}
+            errorMessage={errorMessage}
+            isSubmitDisabled={isSubmitDisabled}
+            animalFormData={animalFormData}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+          />
+        </div>
+      </div> : <h1 className={'animal-not-found'}>Animal Not Found</h1>}
+    </>
+  );
 
 
   return (
@@ -82,20 +115,7 @@ const Animal: React.FC<props> = () => {
           <button onClick={toHomepage}>BACK</button>
         </div>
         <section>
-          {loading && animalFormData ? 'Loading' : <div className={'selected-animal-container'}>
-            <SelectedAnimal selectedAnimal={selectedAnimal} />
-            <div>
-              <h1>Update Animal</h1>
-              <AnimalForm
-                disableForm={disableForm}
-                errorMessage={errorMessage}
-                isSubmitDisabled={isSubmitDisabled}
-                animalFormData={animalFormData}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-              />
-            </div>
-          </div>}
+          {loading && animalFormData ? 'Loading' : <DisplayData />}
         </section>
       </Paper>
     </Wrapper>

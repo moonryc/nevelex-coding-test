@@ -13,6 +13,7 @@ interface props {
 const AllAnimals: React.FC<props> = () => {
 
   const navigate = useNavigate();
+  const { fetchAllPokemon } = useGetAllAnimals();
   const { nameFilter, setNameFilter } = useAnimalsContext();
   const [isDeleteMode, setIsDeleteMode] = useState(false);
 
@@ -20,10 +21,9 @@ const AllAnimals: React.FC<props> = () => {
     navigate('/new');
   };
   const toggleDeleteMode = () => {
-    setIsDeleteMode(prevState => !isDeleteMode);
+    setIsDeleteMode(!isDeleteMode);
   };
 
-  const { fetchAllPokemon } = useGetAllAnimals();
   useEffect(() => {
     fetchAllPokemon();
   }, []);
