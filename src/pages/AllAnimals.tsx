@@ -4,22 +4,22 @@ import Paper from "../components/paper";
 import AnimalSearch from "../components/animal-search";
 import {useNavigate} from "react-router-dom";
 import {useGetAllAnimals} from "../hooks";
-import NameSearch from "../components/animal-search/NameSearch";
 import {useAnimalsContext} from "../context/AnimalContextContainer";
 
-interface props{}
+interface props {
+}
 
 
-const AllAnimals:React.FC<props> = () => {
-
-    const {nameFilter,setNameFilter} = useAnimalsContext()
-    const [isDeleteMode, setIsDeleteMode] = useState(false);
+const AllAnimals: React.FC<props> = () => {
 
     const navigate = useNavigate()
+    const {nameFilter, setNameFilter} = useAnimalsContext()
+    const [isDeleteMode, setIsDeleteMode] = useState(false);
+
     const toNewAnimal = () => {
-      navigate('/new')
+        navigate('/new')
     }
-    const toggleDeleteMode = ()=>{
+    const toggleDeleteMode = () => {
         setIsDeleteMode(prevState => !isDeleteMode)
     }
 
@@ -31,12 +31,14 @@ const AllAnimals:React.FC<props> = () => {
     return (
         <Wrapper>
             <Paper>
-                <div>
-                <button onClick={toNewAnimal}>New Animal</button>
-                <button onClick={toggleDeleteMode}>Delete Animal</button>
-                <input type="text" value={nameFilter} className={'search-field'} placeholder='Search By Name' onChange={(event) => setNameFilter(event.target.value)} />
+                <div className={'input-container'}>
+                    <button className={'menu-button'} onClick={toNewAnimal}>NEW ANIMAL</button>
+                    <button className={'menu-button'} onClick={toggleDeleteMode}>DELETE ANIMAL</button>
                 </div>
-                {/*<NameSearch/>*/}
+                <div className={'search-field-container'}>
+                    <input type="text" value={nameFilter} className={'search-field'} placeholder='Search By Name'
+                           onChange={(event) => setNameFilter(event.target.value)}/>
+                </div>
                 <AnimalSearch isDeleteMode={isDeleteMode}/>
             </Paper>
         </Wrapper>
